@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account — BayaniHomes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="assets/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+    <!--Navbar-->
+    <nav class = "navbar navbar-expand-lg bg-white border-bottom">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="ïndex.html"><b>BayaniHomes</b></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a href="listing.html" class="nav-link">Browse</a></li>
+                <li class="nav-item"><a href="agents.html" class="nav-link">Agents</a></li>
+                <li class="nav-item"><a href="dashboard.html" class="nav-link">My Account</a></li>
+                <li class="nav-item"><a href="admin.html" class="nav-link">Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        <h1 class="h4 mb-4">My Account</h1>
+        <ul class="nav nav-pills mb-3" id="pills" role="tablist">
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#saved">Saved Homes</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#requests">Requests</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#profile">Profile</button></li>
+        </ul>
+
+        <div class="tab-content">
+            <!--Save-->
+            <div class="tab-pane fade show active" id="saved">
+                <div id="savedRow" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3" ></div>
+            </div>
+        </div>
+
+        <!--Request-->
+        <div class="tab-pane fade" id="requests">
+            <table class="table align-middle">
+
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Agent</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="reqBody">
+                    <tr>
+                        <td>2BR Condo, BGC Taguig</td>
+                        <td>Liza Tan</td>
+                        <td>2025-08-15</td>
+                        <td><span class="badge text-bg-warning">Pending</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--Profile-->
+        <div class="tab-pane fade" id="profile">
+            <form>
+                <div class="col-md-6">
+                    <label class="form-label">Full Name</label>
+                    <input class="form-control" value="Juan dela Cruz">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <input  type="email" class="form-control" value="juan@example.com">
+                </div>
+                
+                <div class="col-md-6">
+                    <label class="form-label">Phone</label>
+                    <input class="form-control" value="+63 912 000 0000">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">City</label>
+                    <input class="form-control" value="Quezon City">
+                </div>
+                
+                <div class="col-12">
+                    <button class="btn btn-primary" type="button" onclick="alert('Save (Demo)')">Save Changes</button>
+                </div>
+            </form>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="border-top py-4 mt-5">
+        <div class="container small text-muted d-flex flex-column flex-md-row gap-2 justify-content-between">
+        <div>&copy; <span id="y"></span> BayaniHomes. All rights reserved.
+        </div>
+            <div class="d-flex gap-3">
+                <a href="#" class="link-secondary">Privacy</a>
+                <a href="#" class="link-secondary">Terms</a>
+                <a href="#" class="link-secondary">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/data.js"></script>
+    <script src="/assets/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function renderSaved(){
+        const saved = new Set(store.get('saved', []));
+        const list = PROPERTIES.filter(p=>saved.has(p.id));
+        document.getElementById('savedEmpty').hidden = list.length>0;
+        document.getElementById('savedRow').innerHTML = list.map(p=>`
+            <div class="col">
+            <div class="card h-100">
+                <img src="${p.thumb}" class="card-img-top" alt="${p.title}">
+                <div class="card-body d-flex flex-column">
+                <h3 class="h6">${p.title}</h3>
+                <div class="price">${formatMoney(p.price)}</div>
+                <div class="mt-auto d-flex gap-2">
+                    <a href="property.html?id=${p.id}" class="btn btn-primary btn-sm">View</a>
+                    <button class="btn btn-outline-danger btn-sm" onclick="saveToggle(${p.id})"><i class="bi bi-x"></i> Remove</button>
+                </div>
+                </div>
+            </div>
+            </div>
+        `).join('');
+        }
+        renderSaved();
+        document.addEventListener('saved:change', renderSaved);
+    </script>
+    
+</body>
+</html>

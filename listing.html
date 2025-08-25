@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Properties — BayaniHomes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="assets/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+    <!--Navbar-->
+    <nav nav class = "navbar navbar-expand-lg bg-white border-bottom">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="ïndex.html"><b>BayaniHomes</b></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a href="listing.html" class="nav-link">Browse</a></li>
+                <li class="nav-item"><a href="agents.html" class="nav-link">Agents</a></li>
+                <li class="nav-item"><a href="dashboard.html" class="nav-link">My Account</a></li>
+                <li class="nav-item"><a href="admin.html" class="nav-link">Admin</a></li>
+                </ul>
+            </div>
+            
+        </div>
+    </nav>
+    
+    <main class="container py-4">
+        <div class="row g-4">
+            <aside class="col-lg-3">
+                <div class="sticky-filters">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2 class="h5 mb-0">Filters</h2>
+                        <button class="btn btn-sm btn-outline-secondary" id="resetBtn">Reset</button>
+                    </div>
+
+                    <form id="filterform" class="vstack gap-3">
+                        <div>
+                            <label class="filter-label" for="q">Keyword</label>
+                            <input id="q" name="q" class="form-control" placeholder="e.g., Makati, 3BR, BGC">
+                        </div>
+                        
+                        <div>
+                            <label class="filter-label" for="city">City</label>
+                            <select id="city" name="city" class="form-select">
+                                <option value="">All</option>
+                                <option>Angeles</option>
+                                <option>Quezon City</option>
+                                <option>Taguig</option>
+                                <option>Makati</option>
+                                <option>Mandaluyong</option>
+                                <option>Subic</option>
+                            </select>
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col">
+                                <label class="filter-label" for="minp">Min Price</label>
+                                <input id="minp" name="minp" type="number" class="form-control" placeholder="₱">
+                            </div>
+
+                            <div class="col">
+                                <label>Max Price</label>
+                                <input id="maxp" name="maxp" type="number" class="form-control" placeholder="₱">
+                            </div>
+                        </div>
+
+                        <div class="row g-2">
+
+                            <div class="col">
+                                <label class="filter-label" for="beds">Beds</label>
+                                <select id="beds" name="beds" class="form-select">
+                                    <option value="">Any</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </select>
+                            </div>
+
+                              <div class="col">
+                                <label class="filter-label" for="baths">Baths</label>
+                                <select id="baths" name="baths" class="form-select">
+                                    <option value="">Any</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row g-2">
+
+                            <div class="col">
+                                <label class="filter-label" for="type">Type</label>
+                                <select id="type" name="type" class="form-select">
+                                    <option value="">Any</option>
+                                    <option>House</option>
+                                    <option>Condo</option>
+                                    <option>Lot</option>
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label class="filter-label" for="status">Status</label>
+                                <select id="status" name="status" class="form-select">
+                                    <option value="">Any</option>
+                                    <option>For Sale</option>
+                                    <option>For Rent</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="filter-label" for="sort">Sort</label>
+                            <select id="sort" name="sort" class="form-select">
+                                <option value="new">Newest</option>
+                                <option value="priceLow">Price: Low → High</option>
+                                <option value="priceHigh">Price: High → Low</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-primary w-100" type="submit">Apply<i class="bi bi-funnel ms-2"></i></button>
+                    </form>
+                </div>
+            </aside>
+
+            <!--Result-->
+            <section class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1 class="h4" mb-0>Properties</h1>
+                    <div class="text-muted"><span id="count"></span>Results</div>
+                </div>
+
+                <div id="results" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3"></div>
+
+                <nav class="mt-4">
+                    <ul class="pagination" id="pager"></ul>
+                </nav>
+            </section>
+        </div>
+    </main>
+    
+    <!--Footer-->
+
+  <footer class="border-top py-4 mt-5">
+    <div class="container small text-muted d-flex flex-column flex-md-row gap-2 justify-content-between">
+      <div>&copy; <span id="y"></span> BayaniHomes. All rights reserved.
+      </div>
+      <div class="d-flex gap-3">
+        <a href="#" class="link-secondary">Privacy</a>
+        <a href="#" class="link-secondary">Terms</a>
+        <a href="#" class="link-secondary">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    //Pagination
+    const pager = document.getElementById('pager');
+    const form = document.getElementById('filterform');
+    const PAGE_SIZE = 9; 
+    const list = window.PROPERTIES || [];
+
+    const currentPage = Number(new URLSearchParams(location.search).get('page')) || 1;
+    const pages = Math.ceil(list.length / PAGE_SIZE) || 1;
+    pager.innerHTML = Array.from({length: pages}).map((_, i) => {
+        const n = i + 1;
+        const params = new URLSearchParams(location.search);
+        params.set('page', n);
+        
+        return `<li class="page-item ${n === currentPage ? 'active' : ''}">
+            <a class="page-link" href="?${params.toString()}">${n}</a>
+        </li>`;
+    }).join('');
+
+    form.addEventListener('submit', e=>{
+        e.preventDefault();
+        const params = new URLSearchParams(new FormData(form)); params.set('page', 1);
+        history.replaceState({}, '', '?'+params.toString());
+        applyFilters();
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', ()=>{
+      form.reset(); history.replaceState({}, '', location.pathname); applyFilters();
+    });
+
+    applyFilters();
+  </script>
+  
+</body>
+</html>

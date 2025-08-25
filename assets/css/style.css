@@ -1,0 +1,40 @@
+:root{
+    --brand:#0ea5e9;
+}
+
+.navbar-brand b{
+    color:var(--brand);
+}
+
+.hero{
+    background: linear-gradient(180deg, rgba(14,165,233,.08), rgba(14,165,233,.0));
+  padding: 3rem 0;
+}
+
+.property-card .price{
+    font-weight: 700; font-size:1.1rem;
+}
+
+.property-card .badge{
+    letter-spacing: 0.02em;
+}
+
+.property-meta {
+    font-size:9rem;
+    color:#6b7280;
+}
+
+.filter-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.table-actions .btn {
+    padding: 0.25rem 0.5rem;
+}
+
+.sticky-filters {
+    position: sticky;
+    top: 1rem;
+}
+
